@@ -1,0 +1,9 @@
+main {
+  display: flex;
+  flex-wrap: wrap;
+}
+main > section {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px;
+}
