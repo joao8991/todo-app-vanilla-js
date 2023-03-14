@@ -3,6 +3,13 @@ let todos = [
   "I need to do this",
   "Another something to do",
   "Another one???",
+  "Another one???",
+  "Another one???",
+  "Another one???",
+  "Another one???",
+  "Another one???",
+  "Another one???",
+  "Another one???",
 ];
 let searchValue = document.querySelector("#search-input").value;
 const todosList = document.querySelector("ul");
@@ -29,11 +36,16 @@ const createListItem = (value, index) => {
 
 const createTodos = () => {
   todosList.innerHTML = null;
-  todos.forEach((text, index) => {
+  const pageSize = 8;
+  const todosLength = todos.length;
+  todos.slice(0, pageSize).forEach((text, index) => {
     if (text.includes(searchValue)) {
       todosList.append(createListItem(text, index));
     }
   });
+  document.querySelector("#left-to-show").innerText = `${
+    todosLength - pageSize
+  } items not showing...`;
 };
 
 //create events
