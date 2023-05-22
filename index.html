@@ -14,13 +14,19 @@
     </header>
     <main>
       <section>
-        <label for="add-item">Add an item</label>
-        <input type="text" placeholder="item" id="add-item" />
+        <label for="add-item"
+          >Add an item
+          <input type="text" placeholder="item" id="add-item" />
+        </label>
         <button id="add-item-button">Add</button>
       </section>
       <section>
-        <label for="search-input">Search item</label>
-        <input type="text" placeholder="item" id="search-input" />
+        <label for="search-input" id="search-input-label"
+          >Search item
+          <input type="text" placeholder="item" id="search-input">
+          <div id="auto-complete"></div>
+        </input>
+        </label>
         <ul id="todo-list"></ul>
         <p id="left-to-show"></p>
       </section>

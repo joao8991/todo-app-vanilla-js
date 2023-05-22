@@ -11,12 +11,54 @@ let todos = [
   "Another one???",
   "Another one???",
 ];
-let searchValue = document.querySelector("#search-input").value;
+const searchInput = document.querySelector("#search-input");
+let searchValue = searchInput.value;
 const todosList = document.querySelector("ul");
+let showAutoComplete = false;
 
 const removeTodo = (index) => {
   todos.splice(index, 1);
   createTodos();
+};
+
+const autoComplete = document.querySelector("#auto-complete");
+
+document.addEventListener("click", (e) => {
+  if (e.target.id !== "search-input") {
+    showAutoComplete = false;
+    createTodos();
+  }
+});
+
+searchInput.addEventListener("click", () => {
+  showAutoComplete = true;
+  createTodos();
+});
+
+const handleAutoComplete = () => {
+  autoComplete.innerHTML = "";
+  if (showAutoComplete) {
+    const lcSearchValue = searchValue.toLowerCase();
+    const todosIncludesSearchValue = todos.filter((text) =>
+      text.toLowerCase().includes(lcSearchValue)
+    );
+    if (todosIncludesSearchValue.length > 0) {
+      autoComplete.style.display = "block";
+      todosIncludesSearchValue.forEach((todoIncludes) => {
+        const p = document.createElement("p");
+        p.addEventListener("click", (e) => {
+          e.preventDefault();
+          searchInput.value = todoIncludes;
+          showAutoComplete = false;
+          createTodos();
+        });
+        p.innerText = todoIncludes;
+        autoComplete.append(p);
+      });
+      return;
+    }
+  }
+  autoComplete.style.display = "none";
 };
 
 const createListItem = (value, index) => {
@@ -46,6 +88,8 @@ const createTodos = () => {
   document.querySelector("#left-to-show").innerText = `${
     todosLength - pageSize
   } items not showing...`;
+
+  handleAutoComplete();
 };
 
 //create events
